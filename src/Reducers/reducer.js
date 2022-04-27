@@ -1,5 +1,4 @@
 import produce from "immer";
-import { persistor } from "./store";
 import { PURGE } from "redux-persist";
 
 const initialState = {
@@ -9,6 +8,7 @@ const initialState = {
 	id: null,
 	status: null,
 	token: null,
+	rememberChecked: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,33 +17,31 @@ const reducer = (state = initialState, action) => {
 			case PURGE: {
 				return initialState;
 			}
-			case "getUserInfos": {
+			case 'REMEMBER_CHECKED': {
+				draft.rememberChecked = action.payload;
+				return;
+			}
+			case "GET_USER_INFOS": {
 				draft.email = action.payload.email;
 				draft.firstName = action.payload.firstName;
 				draft.lastName = action.payload.lastName;
 				draft.id = action.payload.id;
 				return;
 			}
-			case "logout": {
+			case "LOGOUT": {
 				return initialState;
 			}
-			case "getStatus": {
+			case "GET_STATUS": {
 				draft.status = action.payload;
 				return;
 			}
-			case "getToken": {
+			case "GET_TOKEN": {
 				draft.token = action.payload;
 				return;
 			}
-			case "editName": {
+			case "EDIT_NAME": {
 				draft.firstName = action.payload.firstName;
 				draft.lastName = action.payload.lastName;
-				return;
-			}
-			case "getErrorForm": {
-				draft.passwordError = action.payload.password;
-				draft.userNameError = action.payload.username;
-				draft.invalidLogin = action.payload.invalid;
 				return;
 			}
 			default:

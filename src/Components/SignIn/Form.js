@@ -4,15 +4,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getLoginUser } from "../../CallApi";
-import { store } from "../../Utils/store";
+import { store } from "../../Store/store";
+import { REMEMBER_CHECKED } from "../../Actions/actions";
 
 const Form = () => {
 	const [userName, setUserName] = useState();
 	const [password, setPassword] = useState();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const checkbox = document.querySelector("#remember-me");
 
-	
 	useEffect(() => {
 		document.querySelector("#username").addEventListener("change", (e) => {
 			setUserName(e.target.value);
@@ -65,13 +66,17 @@ const Form = () => {
 							if (store.getState().status === 200) {
 								navigate("/profile");
 							} else {
-								alert('Invalid username or password')
+								alert("Invalid username or password");
+							}
+							if (checkbox.checked) {
+								dispatch(REMEMBER_CHECKED(true));
+							} else {
+								dispatch(REMEMBER_CHECKED(false));
 							}
 						}}
 					>
 						Sign In
 					</button>
-					{/* <span className={store.getState().status === 400 ? 'error-id' : "error-hidden"}>Invalid username or password</span> */}
 				</form>
 			</section>
 		</main>

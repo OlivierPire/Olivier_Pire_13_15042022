@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearStorage, logout } from "../../Utils/actions";
+import { LOGOUT } from "../../Actions/actions";
 
 const Header = () => {
 	const location = useLocation();
@@ -23,11 +23,11 @@ const Header = () => {
 				<div>
 					{location.pathname === "/profile" ? (
 						<div>
-							<NavLink to={"/login"} className="main-nav-item">
+							<NavLink to={"/profile"} className="main-nav-item">
 								<FontAwesomeIcon icon={faUserCircle} />
 								{firstName}
 							</NavLink>
-							<NavLink to={"/"} className="main-nav-item" onClick={() => dispatch(logout())}>
+							<NavLink to={"/"} className="main-nav-item" onClick={() => dispatch(LOGOUT())}>
 								<FontAwesomeIcon icon={faSignOut} />
 								Sign Out
 							</NavLink>

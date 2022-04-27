@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getTest } from "../../CallApi";
-import { store } from "../../Utils/store";
-import { editName } from "../../Utils/actions";
+import { updateName } from "../../CallApi";
+import { store } from "../../Store/store";
+import { EDIT_NAME } from "../../Actions/actions";
 
 const Welcome = () => {
 	const [firstName, setFirstName] = useState(store.getState().firstName)
@@ -10,18 +10,17 @@ const Welcome = () => {
 	// const lastName = useSelector((state) => state.lastName);
 	const token = useSelector((state) => state.token);
 
-    useEffect(() => {
-        document.querySelector('.first-name').addEventListener('change', (e) => {
-            setFirstName(e.target.value)
-        })
-        document.querySelector('.last-name').addEventListener('change', (e) => {
-            setLastName(e.target.value)
-        })
-    }, [])
+	const setName = () => {
+		setFirstName(document.querySelector('.first-name').value)
+		setLastName(document.querySelector('.last-name').value)
+	}
     
-    const saveEdit = () => {
-        getTest(token, firstName, lastName)
-        store.dispatch(editName(firstName, lastName))
+    const saveEdit = async () => {
+		const firstNameInputValue = document.querySelector('.first-name').value
+		const lastNameInputValue = document.querySelector('.last-name').value
+		await setName()
+        await store.dispatch(EDIT_NAME(firstNameInputValue, lastNameInputValue))
+        updateName(token, firstNameInputValue, lastNameInputValue)
         hideEditName()
     }
 
@@ -38,7 +37,6 @@ const Welcome = () => {
 	};
 
 	return (
-		<main className="main bg-dark">
 			<div className="header">
 				<h1>
 					Welcome back
@@ -61,7 +59,7 @@ const Welcome = () => {
 					Edit Name
 				</button>
 			</div>
-		</main>
+		
 	);
 };
 
