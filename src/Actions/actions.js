@@ -8,9 +8,9 @@ export const GET_USER_INFOS = (email, firstName, lastName, id) => ({
 	},
 });
 
-export const REMEMBER_CHECKED = (bool) => ({
+export const REMEMBER_CHECKED = (boolean) => ({
 	type: 'REMEMBER_CHECKED',
-	payload: bool,
+	payload: boolean,
 })
 
 export const LOGOUT = () => ({

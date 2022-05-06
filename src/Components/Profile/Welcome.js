@@ -7,7 +7,6 @@ import { EDIT_NAME } from "../../Actions/actions";
 const Welcome = () => {
 	const [firstName, setFirstName] = useState(store.getState().firstName)
     const [lastName, setLastName] = useState(store.getState().lastName)
-	// const lastName = useSelector((state) => state.lastName);
 	const token = useSelector((state) => state.token);
 
 	const setName = () => {
